@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Editable, EditableInput, EditablePreview } from '@chakra-ui/react'
 
 import { getTraining } from '../apis/training'
 
@@ -28,7 +29,18 @@ export function Training() {
       {trainingData.map((training, index) => {
         return (
           <div key={index}>
-            <p>{training.day}</p>
+            <Editable defaultValue={training.day}>
+              <EditablePreview />
+              <EditableInput />
+            </Editable>
+            <Editable defaultValue={training.description}>
+              <EditablePreview />
+              <EditableInput />
+            </Editable>
+            <Editable defaultValue={training.location}>
+              <EditablePreview />
+              <EditableInput />
+            </Editable>
 
             <input type="button" />
           </div>

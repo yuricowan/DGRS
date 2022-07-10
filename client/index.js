@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { BrowserRouter as Router } from 'react-router-dom'
@@ -10,15 +10,14 @@ import App from './components/App'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)))
+const root = createRoot(document.getElementById('app'))
 
 document.addEventListener('DOMContentLoaded', () => {
-  render(
+  root.render(
     <Router>
       <Provider store={store}>
         <App />
       </Provider>
-    </Router>,
-
-    document.getElementById('app')
+    </Router>
   )
 })
