@@ -1,15 +1,12 @@
 import React from 'react'
+import { Route, Routes } from 'react-router-dom'
 import { Training } from './Training'
 
 function App() {
   return (
-    <>
-      <header className="header"></header>
-      <section className="main">
-        <Training />
-        {/* add your code here */}
-      </section>
-    </>
+    <Routes>
+      <Route path="/" element={<Training />} />
+    </Routes>
   )
 }
 

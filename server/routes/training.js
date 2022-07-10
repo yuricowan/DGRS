@@ -7,12 +7,25 @@ const router = express.Router()
 
 // /api/training
 router.get('/', (req, res) => {
-  db.getAllTrainings()
+  return db
+    .getAllTrainings()
     .then((response) => {
       res.json(response)
     })
     .catch(() => {
       res.status(200).send(`Server error`)
+    })
+})
+
+router.patch('/update', (req, res) => {
+  return db
+    .updateTrainingById(req.body)
+    .then((response) => {
+      console.log(`Patch route hit`)
+      res.status(202).json(response)
+    })
+    .catch(() => {
+      res.status(500).send(`server error`)
     })
 })
 

@@ -28,11 +28,9 @@ export function Training() {
       {trainingData.map((training, index) => {
         return (
           <div key={index}>
-            <h3>
-              <strong>{training.day}</strong>
-            </h3>
-            <p>{training.description}</p>
-            <p>{training.location}</p>
+            <p>{training.day}</p>
+
+            <input type="button" />
           </div>
         )
       })}
