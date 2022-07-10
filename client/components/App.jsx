@@ -4,9 +4,7 @@ import { Training } from './Training'
 function App() {
   return (
     <>
-      <header className="header">
-        <h1>My Collection</h1>
-      </header>
+      <header className="header"></header>
       <section className="main">
         <Training />
         {/* add your code here */}
