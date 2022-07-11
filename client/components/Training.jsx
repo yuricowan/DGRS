@@ -1,22 +1,33 @@
 import React, { useState, useEffect } from 'react'
-import { Editable, EditableInput, EditablePreview } from '@chakra-ui/react'
-
-import { getTraining } from '../apis/training'
+import { IconButton, Button } from '@chakra-ui/react'
+import { getTraining, deleteTraining } from '../apis/training'
+import { CloseIcon, PlusSquareIcon } from '@chakra-ui/icons'
+import { AddTraining } from './AddTraining'
 
 export function Training() {
   const [trainingData, setTrainingData] = useState([])
+  const [formStatus, setFormStatus] = useState(false)
 
   useEffect(() => {
-    return getTraining()
-      .then((res) => {
-        setTrainingData(res)
-      })
-      .catch((error) => {
-        console.error(error)
-      })
+    async function fetchData() {
+      const response = await getTraining()
+      setTrainingData(response)
+    }
+    fetchData()
   }, [])
 
-  console.log(trainingData)
+  function removeTraining(day) {
+    return deleteTraining({ day }).then(() => {
+      const updatedData = trainingData.filter((element) => element.day != day)
+      setTrainingData(updatedData)
+    })
+  }
+
+  function openForm() {
+    setFormStatus(true)
+  }
+
+  // check React v.18 is compatible with testing library
 
   return (
     <div>
@@ -26,26 +37,31 @@ export function Training() {
         organised by the club. We usually split into several groups based on
         ability.
       </p>
+      <br />
       {trainingData.map((training, index) => {
         return (
           <div key={index}>
-            <Editable defaultValue={training.day}>
-              <EditablePreview />
-              <EditableInput />
-            </Editable>
-            <Editable defaultValue={training.description}>
-              <EditablePreview />
-              <EditableInput />
-            </Editable>
-            <Editable defaultValue={training.location}>
-              <EditablePreview />
-              <EditableInput />
-            </Editable>
-
-            <input type="button" />
+            <h1>
+              <strong>{training.day}</strong>{' '}
+            </h1>
+            <p>{training.description}</p>
+            <p>{training.location}</p>
+            <IconButton
+              aria-label="Remove training"
+              onClick={() => removeTraining(training.day)}
+              icon={<CloseIcon />}
+            />
           </div>
         )
       })}
+      <Button
+        aria-label="Add training"
+        onClick={() => openForm()}
+        icon={<PlusSquareIcon />}
+      >
+        Add training
+      </Button>
+      {formStatus ? <AddTraining /> : null}
     </div>
   )
 }
