@@ -5,8 +5,8 @@ function getAllTrainings(db = connection) {
   return db('Trainings').select()
 }
 
-function getTrainingById(id, db = connection) {
-  return db('Trainings').select().where({ id })
+function deleteTrainingByDay(day, db = connection) {
+  return db('Trainings').delete().where({ day })
 }
 
 function updateTrainingById(trainingInfo, db = connection) {
@@ -17,4 +17,4 @@ function updateTrainingById(trainingInfo, db = connection) {
     .update({ day, description, location })
 }
 
-module.exports = { getAllTrainings, getTrainingById, updateTrainingById }
+module.exports = { getAllTrainings, deleteTrainingByDay, updateTrainingById }

@@ -29,4 +29,15 @@ router.patch('/update', (req, res) => {
     })
 })
 
+router.delete('/delete', (req, res) => {
+  return db
+    .deleteTrainingByDay(req.body.day)
+    .then(() => {
+      res.sendStatus(204)
+    })
+    .catch(() => {
+      res.status(500).send(`server error`)
+    })
+})
+
 module.exports = router
