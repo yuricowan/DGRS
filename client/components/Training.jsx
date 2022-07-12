@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { IconButton, Button } from '@chakra-ui/react'
-import { getTraining, deleteTraining } from '../apis/training'
+import { fetchTrainingData, deleteTrainingData } from '../actions/training'
 import { useDispatch, useSelector } from 'react-redux'
 import { CloseIcon, PlusSquareIcon } from '@chakra-ui/icons'
 import { AddTraining } from './AddTraining'
-import { fetchTrainingData } from '../actions/training'
 
 export function Training() {
   const dispatch = useDispatch()
-  const [trainingData, setTrainingData] = useState([])
   const trainingInfo = useSelector((state) => state.trainingInfo)
   const [formStatus, setFormStatus] = useState(false)
 
@@ -20,10 +18,7 @@ export function Training() {
   }, [])
 
   function removeTraining(day) {
-    return deleteTraining({ day }).then(() => {
-      const updatedData = trainingData.filter((element) => element.day != day)
-      setTrainingData(updatedData)
-    })
+    dispatch(deleteTrainingData({ day }))
   }
 
   function openForm() {
