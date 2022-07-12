@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux'
-
-// import stuff from './stuff'
+import { trainingInfo } from './training'
+import { errorMessage } from './errorMessage'
 
 export default combineReducers({
-  // stuff
+  trainingInfo,
+  errorMessage,
 })

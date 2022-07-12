@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { IconButton, Button } from '@chakra-ui/react'
 import { getTraining, deleteTraining } from '../apis/training'
+import { useDispatch, useSelector } from 'react-redux'
 import { CloseIcon, PlusSquareIcon } from '@chakra-ui/icons'
 import { AddTraining } from './AddTraining'
+import { fetchTrainingData } from '../actions/training'
 
 export function Training() {
+  const dispatch = useDispatch()
   const [trainingData, setTrainingData] = useState([])
+  const trainingInfo = useSelector((state) => state.trainingInfo)
   const [formStatus, setFormStatus] = useState(false)
 
   useEffect(() => {
     async function fetchData() {
-      const response = await getTraining()
-      setTrainingData(response)
+      await dispatch(fetchTrainingData())
     }
     fetchData()
   }, [])
@@ -38,7 +41,7 @@ export function Training() {
         ability.
       </p>
       <br />
-      {trainingData.map((training, index) => {
+      {trainingInfo.map((training, index) => {
         return (
           <div key={index}>
             <h1>
