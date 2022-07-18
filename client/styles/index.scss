@@ -9,12 +9,13 @@ body {
 
 @media only screen and (max-width: 767px) {
   body {
-    background-color: lightblue;
+    background-color: lightblue !important;
+    font-size: large;
   }
 }
 
 @media only screen and (max-width: 1999px) {
   body {
-    background-color: darkblue;
+    background-color: rgb(97, 97, 140) !important;
   }
 }
